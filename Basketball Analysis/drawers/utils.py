@@ -1,7 +1,23 @@
 import cv2
 import sys
+import numpy as np
 sys.path.append("../")
 from utils.bbox_utils import get_center_of_bbox,get_bbox_width
+
+def draw_triangle(frame, bbox, color):
+    y = int(bbox[1])                                                #Lấy tọa độ y1 (đỉnh trên của bbox).
+    x, _ = get_center_of_bbox(bbox)                                 #Lấy tọa độ tâm theo trục x của bbox.
+
+    triangle_points = np.array([
+        [x, y],
+        [x - 10, y - 20],  
+        [x + 10, y - 20]
+    ])
+
+    cv2.drawContours(frame, [triangle_points], 0, color, cv2.FILLED) #Vẽ tam giác và tô màu đầy bên trong
+    cv2.drawContours(frame, [triangle_points], 0, (0,0,0), 2)
+
+    return frame
 
 def draw_ellipse(frame,bbox, color, track_id = None):
     y2 =  int(bbox[3])
