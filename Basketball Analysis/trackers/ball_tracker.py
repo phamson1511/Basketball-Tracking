@@ -60,16 +60,6 @@ class BallTracker:
 
 
     def remove_wrong_detections(self,ball_positions):
-        """
-        Filter out incorrect ball detections based on maximum allowed movement distance.
-
-        Args:
-            ball_positions (list): List of detected ball positions across frames.
-
-        Returns:
-            list: Filtered ball positions with incorrect detections removed.
-        """
-        
         maximum_allowed_distance = 25
         last_good_frame_index = -1
 
@@ -96,19 +86,11 @@ class BallTracker:
         return ball_positions
 
     def interpolate_ball_positions(self,ball_positions):
-        """
-        Interpolate missing ball positions to create smooth tracking results.
-
-        Args:
-            ball_positions (list): List of ball positions with potential gaps.
-
-        Returns:
-            list: List of ball positions with interpolated values filling the gaps.
-        """
+    
         ball_positions = [x.get(1,{}).get('bbox',[]) for x in ball_positions]
         df_ball_positions = pd.DataFrame(ball_positions,columns=['x1','y1','x2','y2'])
 
-        # Interpolate missing values
+        
         df_ball_positions = df_ball_positions.interpolate()
         df_ball_positions = df_ball_positions.bfill()
 

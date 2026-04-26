@@ -75,17 +75,6 @@ class TeamAssigner:
         return class_name
 
     def get_player_team(self,frame,player_bbox,player_id):
-        """
-        Gets the team assignment for a player, using cached results if available.
-
-        Args:
-            frame (numpy.ndarray): The video frame containing the player.
-            player_bbox (tuple): Bounding box coordinates of the player.
-            player_id (int): Unique identifier for the player.
-
-        Returns:
-            int: Team ID (1 or 2) assigned to the player.
-        """
         if player_id in self.player_team_dict:
           return self.player_team_dict[player_id]
 
@@ -99,18 +88,7 @@ class TeamAssigner:
         return team_id
 
     def get_player_teams_across_frames(self,video_frames,player_tracks,read_from_stub=False, stub_path=None):
-        """
-        Processes all video frames to assign teams to players, with optional caching.
 
-        Args:
-            video_frames (list): List of video frames to process.
-            player_tracks (list): List of player tracking information for each frame.
-            read_from_stub (bool): Whether to attempt reading cached results.
-            stub_path (str): Path to the cache file.
-
-        Returns:
-            list: List of dictionaries mapping player IDs to team assignments for each frame.
-        """
         
         player_assignment = read_stub(read_from_stub,stub_path)
         if player_assignment is not None:
