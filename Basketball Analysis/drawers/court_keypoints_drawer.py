@@ -19,12 +19,10 @@ class CourtKeypointDrawer:
 
         output_frames= []
         for index, frame in enumerate(frames):
-            annotate_frame = frame.copy()
-
             annotated_frame = frame.copy()
+            keypoints = court_keypoints[index] # Copy frame gốc
 
-            keypoints = court_keypoints[index]
-            # Ve cham
+            # Ve cham len frame
             annotated_frame = vertex_annotator.annotate(scene=annotated_frame, key_points=keypoints)
             keypoints_numpy = keypoints.cpu().numpy()
             annotated_frame = vertex_label_annotator.annotate(scene=annotated_frame, key_points=keypoints_numpy)
