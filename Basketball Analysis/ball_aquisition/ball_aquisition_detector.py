@@ -5,8 +5,8 @@ from utils.bbox_utils import measure_distance, get_center_of_bbox
 class BallAquisitionDetector:
  
     def __init__(self):
-        self.possession_threshold = 50 #khoang cach toi da cau thu toi bong
-        self.min_frames = 11
+        self.possession_threshold = 30 #khoang cach toi da cau thu toi bong
+        self.min_frames = 9
         self.containment_threshold = 0.8
         
     def get_key_basketball_player_assignment_points(self, player_bbox,ball_center):

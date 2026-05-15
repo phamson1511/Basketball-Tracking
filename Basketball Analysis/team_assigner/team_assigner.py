@@ -9,16 +9,10 @@ from utils.stubs_utils import read_stub, save_stub
 class TeamAssigner:
 
     def __init__(self,
-                 team_1_class_name= "white shirt",
-                 team_2_class_name= "dark blue shirt",
+                 team_1_class_name= "blue",
+                 team_2_class_name= "yellow",
                  ):
-        """
-        Initialize the TeamAssigner with specified team jersey descriptions.
-
-        Args:
-            team_1_class_name (str): Description of Team 1's jersey appearance.
-            team_2_class_name (str): Description of Team 2's jersey appearance.
-        """
+        
         self.team_colors = {}
         self.player_team_dict = {}        
     
@@ -26,22 +20,18 @@ class TeamAssigner:
         self.team_2_class_name = team_2_class_name
 
     def load_model(self):
-        """
-        Loads the pre-trained vision model for jersey color classification.
-        """
         self.model = CLIPModel.from_pretrained("patrickjohncyh/fashion-clip")
         self.processor = CLIPProcessor.from_pretrained("patrickjohncyh/fashion-clip")
 
     def get_player_color(self,frame,bbox):
         """
-        Analyzes the jersey color of a player within the given bounding box.
+       Phân tích màu áo của một cầu thủ trong vùng bounding box đã cho.
 
-        Args:
-            frame (numpy.ndarray): The video frame containing the player.
-            bbox (tuple): Bounding box coordinates of the player.
-
-        Returns:
-            str: The classified jersey color/description.
+            Tham số:
+            frame (numpy.ndarray): Khung hình video chứa cầu thủ.
+            bbox (tuple): Tọa độ bounding box của cầu thủ.
+            Trả về:
+            str: Màu áo / mô tả màu áo đã được phân loại.
         """
         image = frame[int(bbox[1]):int(bbox[3]),int(bbox[0]):int(bbox[2])]
 

@@ -52,9 +52,6 @@ class BallAquisitionDrawer:
 
         output_video_frames= []
         for frame_num, frame in enumerate(video_frames):
-            if frame_num == 0:
-                continue
-
             frame_drawn = self.draw_frame(frame,frame_num,team_ball_control)
             output_video_frames.append(frame_drawn)
         return output_video_frames
@@ -97,8 +94,13 @@ class BallAquisitionDrawer:
         # Get the number of time each team had ball control
         team_1_num_frames = team_ball_control_till_frame[team_ball_control_till_frame==1].shape[0]
         team_2_num_frames = team_ball_control_till_frame[team_ball_control_till_frame==2].shape[0]
-        team_1 = team_1_num_frames/(team_ball_control_till_frame.shape[0])
-        team_2 = team_2_num_frames/(team_ball_control_till_frame.shape[0])
+        total_possession_frames = team_1_num_frames + team_2_num_frames
+
+        if total_possession_frames > 0:
+            team_1 = team_1_num_frames / total_possession_frames
+            team_2 = team_2_num_frames / total_possession_frames
+        else:
+            team_1 = team_2 = 0.0
 
         cv2.putText(frame, f"Ti le kiem soat doi 1: {team_1*100:.2f}%",(text_x, text_y1), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0,0,0), font_thickness)
         cv2.putText(frame, f"Ti le kiem soat doi 2: {team_2*100:.2f}%",(text_x, text_y2), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0,0,0), font_thickness)

@@ -67,9 +67,9 @@ class TacticalViewConverter:
         keypoints_list = deepcopy(keypoints_list)
 
         for frame_idx, frame_keypoints in enumerate(keypoints_list):
+            if frame_keypoints.xy is None or len(frame_keypoints.xy) == 0:
+                continue
             frame_keypoints = frame_keypoints.xy.tolist()[0]
-            
-            # Get indices of detected keypoints (not (0, 0))
             detected_indices = [i for i, kp in enumerate(frame_keypoints) if kp[0] >0 and kp[1]>0]
             
             # Need at least 3 detected keypoints to validate proportions
@@ -121,7 +121,8 @@ class TacticalViewConverter:
         for frame_idx, (frame_keypoints, frame_tracks) in enumerate(zip(keypoints_list, player_tracks)):
             # Initialize empty dictionary for this frame
             tactical_positions = {}
-
+            if frame_keypoints.xy is None or len(frame_keypoints.xy) == 0:
+                continue
             frame_keypoints = frame_keypoints.xy.tolist()[0]
 
             # Skip frames with insufficient keypoints
