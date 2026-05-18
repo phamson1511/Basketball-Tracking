@@ -9,8 +9,8 @@ from utils.stubs_utils import read_stub, save_stub
 class TeamAssigner:
 
     def __init__(self,
-                 team_1_class_name= "blue",
-                 team_2_class_name= "yellow",
+                 team_1_class_name= "white",
+                 team_2_class_name= "black",
                  ):
         
         self.team_colors = {}

@@ -1,6 +1,4 @@
 from .player_tracks_drawer import PlayerTracksDrawer
 from .ball_tracks_drawer import BallTracksDrawer
-from .court_keypoints_drawer import CourtKeypointDrawer
-from .tactical_view_drawer import TacticalViewDrawer
 from .ball_aquisiton_drawer import BallAquisitionDrawer
 from .pass_and_interception_drawer import PassInterceptionDrawer
