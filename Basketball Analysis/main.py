@@ -1,5 +1,6 @@
 from utils.video_utils import read_video, save_video
 import os
+import time
 import argparse
 from trackers import PlayerTracker,BallTracker
 from drawers import (PlayerTracksDrawer,
@@ -22,12 +23,12 @@ def main():
     print("Start")
     input_path = args.input_video
     video_frames = read_video(input_path)
+    start_time = time.time()
     input_name = os.path.splitext(os.path.basename(input_path))[0]
 
-    
     player_tracker = PlayerTracker("models/player_detector.pt")
     ball_tracker = BallTracker("models/ball_detector.pt")
-
+    
 
     player_tracks = player_tracker.get_object_tracks(video_frames,
                                                      read_from_stub = True,
@@ -72,6 +73,13 @@ def main():
  
     print("Saving video...")
     output_path = f"output_videos/output_{input_name}.avi"  
+
+
+    end_time = time.time()
+    total_frames = len(video_frames)
+    elapsed = end_time - start_time
+    fps = total_frames / elapsed
+    print(f"Frames: {total_frames} | Time: {elapsed:.1f}s ")
     save_video(output_video_frames, output_path) 
 
     print("DONE")

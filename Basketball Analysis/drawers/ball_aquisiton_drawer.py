@@ -74,16 +74,20 @@ class BallAquisitionDrawer:
         font_scale = 0.7
         font_thickness=2
         
-        # Overlay Position
+        # Lấy kích thước thực tế của frame hình
         frame_height, frame_width = overlay.shape[:2]
-        rect_x1 = int(frame_width * 0.60) 
-        rect_y1 = int(frame_height * 0.75)
-        rect_x2 = int(frame_width * 0.99)  
-        rect_y2 = int(frame_height * 0.90)
-        # Text positions
-        text_x = int(frame_width * 0.63)  
-        text_y1 = int(frame_height * 0.80)  
-        text_y2 = int(frame_height * 0.88)
+        
+        # === DI CHUYỂN XUỐNG GÓC DƯỚI CÙNG BÊN PHẢI ===
+        # Hộp nền trắng chiếm từ 52% đến 98% chiều rộng, và từ 85% đến 98% chiều cao
+        rect_x1 = int(frame_width * 0.52) 
+        rect_y1 = int(frame_height * 0.84)
+        rect_x2 = int(frame_width * 0.98)  
+        rect_y2 = int(frame_height * 0.98)
+        
+        # Tọa độ chữ (thụt lề một chút so với viền hộp nền bên phải)
+        text_x = int(frame_width * 0.54)  
+        text_y1 = int(frame_height * 0.89)  
+        text_y2 = int(frame_height * 0.95)
 
 
         cv2.rectangle(overlay, (rect_x1, rect_y1), (rect_x2, rect_y2), (255,255,255), -1 )
